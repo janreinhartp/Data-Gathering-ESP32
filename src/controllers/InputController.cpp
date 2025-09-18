@@ -138,3 +138,45 @@ int16_t *InputController::getValues()
 {
     return this->val;
 }
+
+void InputController::SetSensorCalibrations(int sensorIndex, float rawHigh, float rawLow, float refHigh, float refLow)
+{
+    if (sensorIndex < 0 || sensorIndex >= 12)
+    {
+        Serial.println("Invalid sensor index");
+        return;
+    }
+    this->rawHigh[sensorIndex] = rawHigh;
+    this->rawLow[sensorIndex] = rawLow;
+    this->refHigh[sensorIndex] = refHigh;
+    this->refLow[sensorIndex] = refLow;
+}
+
+float InputController::getCalibratedValue(int sensorIndex)
+{
+    if (sensorIndex < 0 || sensorIndex >= 12)
+    {
+        Serial.println("Invalid sensor index");
+        return 0.0f;
+    }
+    float rawValue = static_cast<float>(this->val[sensorIndex]);
+    // Prevent division by zero
+    if (rawHigh[sensorIndex] == rawLow[sensorIndex])
+    {
+        Serial.println("Invalid calibration data: rawHigh equals rawLow");
+        return 0.0f;
+    }
+    // Linear interpolation formula
+    float calibratedValue = refLow[sensorIndex] + (rawValue - rawLow[sensorIndex]) * (refHigh[sensorIndex] - refLow[sensorIndex]) / (rawHigh[sensorIndex] - rawLow[sensorIndex]);
+    return calibratedValue;
+}
+
+float* InputController::getAllCalibratedValues()
+{
+    static float calibratedValues[12];
+    for (int i = 0; i < 12; ++i)
+    {
+        calibratedValues[i] = getCalibratedValue(i);
+    }
+    return calibratedValues;
+}

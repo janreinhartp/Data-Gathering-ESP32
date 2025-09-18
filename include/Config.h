@@ -69,9 +69,9 @@
 #define S11_REF_HIGH 10.0
 #define S11_REF_LOW -10.0    
 
-#define S1_RAW_REF_HIGH 32767
-#define S1_RAW_REF_LOW -32768
-#define S1_REF_HIGH 10.0
-#define S1_REF_LOW -10.0    
+#define S12_RAW_REF_HIGH 32767
+#define S12_RAW_REF_LOW -32768
+#define S12_REF_HIGH 10.0
+#define S12_REF_LOW -10.0    
 
 // DEFAULT CONFIGURATION

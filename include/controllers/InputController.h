@@ -8,15 +8,24 @@ public:
 
     void begin();
     void ADS_request_all();
-    int16_t* getValues();
-    
+    int16_t *getValues();
+    void SetSensorCalibrations(int sensorIndex, float rawHigh, float rawLow, float refHigh, float refLow);
+    float getCalibratedValue(int sensorIndex);
+    float *getAllCalibratedValues();
+    bool handleConversion();
+
+private:
+    // Calibration variables for 12 sensors
+    float rawHigh[12] = {0.0f};
+    float rawLow[12] = {0.0f};
+    float refHigh[12] = {0.0f};
+    float refLow[12] = {0.0f};
+
     // Interrupt handlers
     static void adsReady_1();
     static void adsReady_2();
     static void adsReady_3();
-    bool handleConversion();
 
-private:
     ADS1115 ads1;
     ADS1115 ads2;
     ADS1115 ads3;
