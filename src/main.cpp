@@ -5,7 +5,7 @@
 InputController inputController(ADS1115_ADDRESS1, ADS1115_ADDRESS2, ADS1115_ADDRESS3, INTERRUPT_PIN_1, INTERRUPT_PIN_2, INTERRUPT_PIN_3);
 
 int16_t values[12] = {0};
-
+float valuesf[12] = {0.0f};
 void setSensorCalibrations()
 {
   inputController.SetSensorCalibrations(0, S1_RAW_REF_HIGH, S1_RAW_REF_LOW, S1_REF_HIGH, S1_REF_LOW);
@@ -47,12 +47,12 @@ void loop()
     delay(10);
   }
 
-  float *newValues = inputController.GetCalibratedValues();
+  float *newFloatValues = inputController.GetCalibratedValues();
   Serial.println("Calibrated Sensor Values:");
   for (int i = 0; i < 12; ++i)
   {
-    values[i] = newValues[i];
-    Serial.println("Pin " + String(i) + " : " + String(values[i]));
+    valuesf[i] = newFloatValues[i];
+    Serial.println("Pin " + String(i) + " : " + String(valuesf[i]));
     delay(10);
   }
 
