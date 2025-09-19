@@ -39,7 +39,16 @@ void loop()
   }
 
   int16_t *newValues = inputController.getValues();
-  Serial.println("Sensor Values:");
+  Serial.println("Raw Sensor Values:");
+  for (int i = 0; i < 12; ++i)
+  {
+    values[i] = newValues[i];
+    Serial.println("Pin " + String(i) + " : " + String(values[i]));
+    delay(10);
+  }
+
+  float *newValues = inputController.GetCalibratedValues();
+  Serial.println("Calibrated Sensor Values:");
   for (int i = 0; i < 12; ++i)
   {
     values[i] = newValues[i];

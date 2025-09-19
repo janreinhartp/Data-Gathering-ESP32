@@ -14,20 +14,20 @@
 #define MAC_ADDRESS_SENDER {0x20, 0x6E, 0xF1, 0x6C, 0x33, 0x18}
 #define MAC_ADDRESS_RECEIVER {0x10, 0x51, 0xDB, 0x75, 0xD2, 0x48}
 
-#define S1_RAW_REF_HIGH 32767
-#define S1_RAW_REF_LOW -32768
-#define S1_REF_HIGH 10.0
-#define S1_REF_LOW -10.0
+#define S1_RAW_REF_HIGH 6704
+#define S1_RAW_REF_LOW 5440
+#define S1_REF_HIGH 35.0
+#define S1_REF_LOW 25.0
 
-#define S2_RAW_REF_HIGH 32767
-#define S2_RAW_REF_LOW -32768
-#define S2_REF_HIGH 10.0
-#define S2_REF_LOW -10.0
+#define S2_RAW_REF_HIGH 6704
+#define S2_RAW_REF_LOW 5440
+#define S2_REF_HIGH 35.0
+#define S2_REF_LOW 25.0
 
-#define S3_RAW_REF_HIGH 32767
-#define S3_RAW_REF_LOW -32768
-#define S3_REF_HIGH 10.0
-#define S3_REF_LOW -10.0    
+#define S3_RAW_REF_HIGH 6224
+#define S3_RAW_REF_LOW 5136
+#define S3_REF_HIGH 30.0
+#define S3_REF_LOW 20.0    
 
 #define S4_RAW_REF_HIGH 32767
 #define S4_RAW_REF_LOW -32768

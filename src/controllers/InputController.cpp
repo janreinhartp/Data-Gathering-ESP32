@@ -152,31 +152,16 @@ void InputController::SetSensorCalibrations(int sensorIndex, float rawHigh, floa
     this->refLow[sensorIndex] = refLow;
 }
 
-float InputController::getCalibratedValue(int sensorIndex)
-{
-    if (sensorIndex < 0 || sensorIndex >= 12)
-    {
-        Serial.println("Invalid sensor index");
-        return 0.0f;
-    }
-    float rawValue = static_cast<float>(this->val[sensorIndex]);
-    // Prevent division by zero
-    if (rawHigh[sensorIndex] == rawLow[sensorIndex])
-    {
-        Serial.println("Invalid calibration data: rawHigh equals rawLow");
-        return 0.0f;
-    }
-    // Linear interpolation formula
-    float calibratedValue = refLow[sensorIndex] + (rawValue - rawLow[sensorIndex]) * (refHigh[sensorIndex] - refLow[sensorIndex]) / (rawHigh[sensorIndex] - rawLow[sensorIndex]);
-    return calibratedValue;
-}
+float *InputController::GetCalibratedValues() {
+    static float calibratedValues[12]; // Static to ensure it persists after function returns
 
-float* InputController::getAllCalibratedValues()
-{
-    static float calibratedValues[12];
-    for (int i = 0; i < 12; ++i)
-    {
-        calibratedValues[i] = getCalibratedValue(i);
+    for (int i = 0; i < 12; ++i) {
+        if (rawHigh[i] == rawLow[i]) {
+            Serial.println("Calibration error: rawHigh equals rawLow for sensor " + String(i));
+            calibratedValues[i] = 0.0f; // Avoid division by zero
+            continue;
+        }
+        calibratedValues[i] = refLow[i] + (static_cast<float>(this->val[i]) - rawLow[i]) * (refHigh[i] - refLow[i]) / (rawHigh[i] - rawLow[i]);
     }
     return calibratedValues;
 }

@@ -10,8 +10,7 @@ public:
     void ADS_request_all();
     int16_t *getValues();
     void SetSensorCalibrations(int sensorIndex, float rawHigh, float rawLow, float refHigh, float refLow);
-    float getCalibratedValue(int sensorIndex);
-    float *getAllCalibratedValues();
+    float *GetCalibratedValues();
     bool handleConversion();
 
 private:
