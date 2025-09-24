@@ -3,6 +3,7 @@
 #include "Controllers.h"
 
 InputController inputController(ADS1115_ADDRESS1, ADS1115_ADDRESS2, ADS1115_ADDRESS3, INTERRUPT_PIN_1, INTERRUPT_PIN_2, INTERRUPT_PIN_3);
+ScaleController scaleController(SCALE_DATA_PIN, SCALE_CLOCK_PIN, SCALE_CALIBRATION_FACTOR);
 
 int16_t values[12] = {0};
 float valuesf[12] = {0.0f};
@@ -27,6 +28,9 @@ void setup()
   Serial.begin(115200);
   inputController.begin();
   setSensorCalibrations();
+  scaleController.begin();
+  scaleController.tare();
+  Serial.println("Setup complete.");
 }
 
 void loop()
@@ -55,6 +59,9 @@ void loop()
     Serial.println("Pin " + String(i) + " : " + String(valuesf[i]));
     delay(10);
   }
+
+  float weight = scaleController.getWeight();
+  Serial.println("Weight: " + String(weight) + " KG");
 
   delay(1000);
 }
